@@ -75,7 +75,3 @@ Date:2026/7/12
 #     for j in range(1,i + 1):
 #         print(f'{i} * {j} = {j * i}',end = '\t')
 #     print()
-
-
-# project14 - while循环
-
