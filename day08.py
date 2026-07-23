@@ -57,6 +57,3 @@ Date:2026/7/22
 
 # for _ in range(5):
 #     print(generat_code(code_len=6))
-
-
-# project51 - 
