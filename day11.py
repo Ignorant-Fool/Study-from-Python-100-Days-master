@@ -78,15 +78,21 @@ Date:2026/7/25
 # stu2.eat()
 
 
-# project61 - 写一个类描述数字时钟
-
+# # project61 - 写一个类描述数字时钟
+#
 # # 数据抽象 - 属性 - 时、分、秒
 # # 行为抽象 - 行为 - 走字、显示时间
 #
+# from datetime import datetime
 # import time
 #
 # class Clock:
 #     """时钟类"""
+#
+#     @classmethod
+#     def current(cls):
+#         dt = datetime.now()
+#         return cls(dt.hour, dt.minute, dt.second)
 #
 #     def __init__(self, hour=0, minute=0, second=0):
 #         """
@@ -128,69 +134,101 @@ Date:2026/7/25
 #                     self.hour = 0
 #
 # x = Clock(23,59,57)
+# x = Clock.current()
 # while True:
-#     print(x.show(is_full=False))
+#     print(x.show())
 #     x.run()
 #     time.sleep(1)
 
 
 # project62 - 扑克游戏
 
-# 牌 - 属性？？？行为？？？
-# 扑克
-# 玩家
-
-# 对象的属性：天然属性(原生属性)、计算属性
-
-import random
-
-class Card:
-    """牌"""
-
-    def __init__(self,suite, face):
-        self.suite = suite
-        self.face = face
-
-    def __str__(self):
-        return self.show()
-
-    def show(self):
-        suites = {'S': '♠️', 'H': '❤️', 'C': '♣️', 'D': '♦️'}
-        faces = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-        return f'{suites[self.suite]}{faces[self.face]}'
-
-class Poker:
-    """扑克"""
-
-    def __init__(self):
-        self.cards = [Card(suite, face)
-                      for suite in 'SHCD'
-                      for face in range(1,14)]
-        self.index = 0
-
-    def shuffle(self):
-        """洗牌"""
-        random.shuffle(self.cards)
-        self.index = 0
-
-    def deal(self):
-        """发牌"""
-        card = self.cards[self.index]
-        self.index += 1
-        return card
-
-    @property                                   # 属性装饰器：把方法变成属性
-    def has_more(self):
-        """判断有没有牌可以发出"""
-        return self.index < len(self.cards)
-
-
-def main():
-    poker = Poker()
-    poker.shuffle()
-    for _ in range(55):
-        if poker.has_more:
-            print(poker.deal())
-
-if __name__ == '__main__':
-    main()
+# # 牌 - 属性？？？行为？？？
+# # 扑克
+# # 玩家
+#
+# # 对象的属性：天然属性(原生属性)、计算属性
+#
+# import random
+#
+# class Card:
+#     """牌"""
+#
+#     def __init__(self,suite, face):
+#         self.suite = suite
+#         self.face = face
+#
+#     def __repr__(self):
+#         return self.show()
+#
+#     # less than
+#     def __lt__(self, other):
+#         if self.suite == other.suite:
+#             return self.face < other.face
+#         return self.suite < other.suite
+#
+#     def show(self):
+#         suites = {'S': '♠️', 'H': '❤️', 'C': '♣️', 'D': '♦️'}
+#         faces = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+#         return f'{suites[self.suite]}{faces[self.face]}'
+#
+# class Poker:
+#     """扑克"""
+#
+#     def __init__(self):
+#         self.cards = [Card(suite, face)
+#                       for suite in 'SHCD'
+#                       for face in range(1,14)]
+#         self.index = 0
+#
+#     def shuffle(self):
+#         """洗牌"""
+#         random.shuffle(self.cards)
+#         self.index = 0
+#
+#     def deal(self):
+#         """发牌"""
+#         card = self.cards[self.index]
+#         self.index += 1
+#         return card
+#
+#     @property                                   # 属性装饰器：把方法变成属性
+#     def has_more(self):
+#         """判断有没有牌可以发出"""
+#         return self.index < len(self.cards)
+#
+# class Player:
+#     """玩家"""
+#
+#     def __init__(self, nickname):
+#         self.nickname = nickname
+#         self.cards = []
+#
+#     def get_more(self, card):
+#         """摸牌"""
+#         self.cards.append(card)
+#
+#     def arrange(self):
+#         """整理手上的牌"""
+#         self.cards.sort()
+#
+# def main():
+#     poker = Poker()
+#     poker.shuffle()
+#
+#     players = [Player('东邪'), Player('西毒'), Player('南帝'), Player('北丐')]
+#
+#     for _ in range(13):
+#         for player in players:
+#             card = poker.deal()
+#             player.get_more(card)
+#
+#     for player in players:
+#         player.arrange()
+#         print(player.nickname,end = ':')
+#         print(player.cards)
+#
+#
+#
+# if __name__ == '__main__':
+#     main()
