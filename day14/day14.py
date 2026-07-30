@@ -124,7 +124,7 @@ Date:2026/7/29
 
 # project73 - 读写JSON格式的数据
 
-import json
+# import json
 
 # my_dict = {
 #     'name': '骆昊',
@@ -138,7 +138,7 @@ import json
 # }
 #
 # print(json.dumps(my_dict))
-
+#
 # 如果要将字典处理成 JSON 格式并写入文本文件，只需要将dumps函数换成dump函数并传入文件对象即可
 # with open('data.json','w') as file:
 #     json.dump(my_dict, file)
