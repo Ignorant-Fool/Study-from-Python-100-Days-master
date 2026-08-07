@@ -6,9 +6,13 @@ Version:0.1
 Date:2026/8/5
 """
 
-email_from = '发件人邮箱'
-email_to = '收件人邮箱'
-email_auth = '授权码'
+# email_from = '发件人邮箱'
+# email_to = '收件人邮箱'
+# email_auth = '授权码'
+# key = '螺丝帽的个人API-KEY'
+# url = 'https://sms-api.luosimao.com/v1/send.json'
+# phone = '收信人手机号'
+
 
 # project96 - 发送电子邮件
 
@@ -96,7 +100,7 @@ email_auth = '授权码'
 # # 邮件服务器域名(自行修改)
 # EMAIL_HOST = 'smtp.qq.com'
 # # 邮件服务端口(通常是465)
-# EMAIL_PORT = '465'
+# EMAIL_PORT = 465
 # # 登录邮件服务器的账号(自行修改)
 # EMAIL_USER = email_from
 # # 开通SMTP服务的授权码（自行修改）
@@ -115,18 +119,30 @@ email_auth = '授权码'
 #     email = MIMEMultipart()
 #     email['From'] = from_user
 #     email['To'] = to_users
-#     email['Subject'] = subject
+#     email['Subject'] = Header(subject, 'utf-8').encode()
 #
 #     message = MIMEText(content, 'plain', 'utf-8')
 #     email.attach(message)
+#
+#     # 替换前
+#     # for filename in filenames:
+#     #     with open(filename, 'rb') as file:
+#     #         pos = filename.rfind('/')
+#     #         display_filename = filename[pos + 1:] if pos >= 0 else filename
+#     #         display_filename = quote(display_filename)
+#     #         attachment = MIMEText(file.read(), 'base64', 'utf-8')
+#     #         attachment['content-type'] = 'application/octet-stream'
+#     #         attachment['content-disposition'] = f'attachment; filename="{display_filename}"'
+#     #         email.attach(attachment)
+#
+#     # 替换后
+#     from email.mime.application import MIMEApplication
 #     for filename in filenames:
 #         with open(filename, 'rb') as file:
 #             pos = filename.rfind('/')
 #             display_filename = filename[pos + 1:] if pos >= 0 else filename
-#             display_filename = quote(display_filename)
-#             attachment = MIMEText(file.read(), 'base64', 'utf-8')
-#             attachment['content-type'] = 'application/octet-stream'
-#             attachment['content-disposition'] = f'attachment; filename="{display_filename}"'
+#             attachment = MIMEApplication(file.read())
+#             attachment.add_header('Content-Disposition', 'attachment', filename = display_filename)
 #             email.attach(attachment)
 #
 #     smtp = smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT)
@@ -141,3 +157,36 @@ email_auth = '授权码'
 #         content="附件为离职证明文档",
 #         filenames=["王大锤离职证明.docx"]
 #     )
+
+
+# project99 - 发送短信
+
+# import random
+#
+# import requests
+#
+# def send_message(tel, message):
+#     """发送短信(调用螺丝帽短信网关)"""
+#     resp = requests.post(
+#         url=url,
+#         auth=('api', key),
+#         data={
+#             'mobile': tel,
+#             'message': message
+#         },
+#         timeout = 10,
+#         verify = False
+#     )
+#     return resp.json()
+#
+# def gen_mobile_code(length=6):
+#     """生成指定长度的手机验证码"""
+#     return ''.join(random.choices('0123456789', k=length))
+#
+# def main():
+#     code = gen_mobile_code()
+#     message = f'您的短信验证码是{code}，打死也不能告诉别人哟！！【铁壳测试】'
+#     print(send_message(phone, message))
+#
+# if __name__ == '__main__':
+#     main()
