@@ -128,7 +128,7 @@ Date:2026/8/11
 # 快速排序：选择枢轴对元素进行划分，左边都比枢轴小右边都比枢轴大
 
 # list0 = [34, 25, 12, 99, 87, 63, 58, 78, 88, 92]
-#
+
 # def quick_sort(items, comp=lambda x, y: x <= y):
 #     items = list(items)[:]
 #     _quick_sort(items, 0, len(items) - 1, comp)
@@ -151,3 +151,27 @@ Date:2026/8/11
 #     return i + 1
 #
 # print(quick_sort(list0))
+
+# 自行练习
+# def sort(items, comp=lambda x, y: x <= y):
+#     items = list(items)[:]
+#     _sort(items, 0, len(items) - 1, comp)
+#     return items
+#
+# def _sort(items, start, end, comp):
+#     if start < end:
+#         pos = _part(items, start, end, comp)            # 个人理解：将items[end]放在items列表中正确的位置上(即items[pos])，并保证pos左边均为小于该数的数，右边均为大于该数的数
+#         _sort(items, start, pos - 1, comp)
+#         _sort(items, pos + 1, end, comp)
+#
+# def _part(items, start, end, comp):
+#     pivot = items[end]
+#     i = start - 1
+#     for j in range(start, end):
+#         if comp(items[j], pivot):
+#             i += 1
+#             items[i], items[j] = items[j], items[i]
+#     items[i + 1], items[end] = items[end], items[i + 1]
+#     return i + 1
+#
+# print(sort(list0))
