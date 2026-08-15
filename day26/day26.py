@@ -88,6 +88,7 @@ Date:2026/8/14
 #     ceshi()
 #     print(ceshi.__name__)
 #     print(ceshi.__doc__)
+#     ceshi.__wrapped__()
 #
 # if __name__ == '__main__':
 #     main()
